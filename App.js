@@ -14,7 +14,7 @@ function MapScreen() { return (<Map></Map>); }
 function ParksScreen() { return (<Parks></Parks>); }
 function FeaturedScreen() { return (<Featured></Featured>); }
 function SearchScreen() { return (<Search></Search>); }
-function AccountScreen() { return (<Account></Account>); }
+function AccountScreen() { return (<Account></Account>);}
 //Creates the bottom tabs and assigns screens to each tab
 const Tab = createBottomTabNavigator();
 function Tabs() {
@@ -40,11 +40,14 @@ function Tabs() {
             })}
             //Sets Tab Colours
             tabBarOptions={{
-                activeTintColor: 'darkolivegreen',
+                activeTintColor: 'white',
                 inactiveTintColor: 'black',
+                activeBackgroundColor: '#85c47c',
+                inactiveBackgroundColor:'#85c47c'
             }}
             //Sets Inital Selected Tab
             initialRouteName={"Featured"}
+            
         >
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Parks" component={ParksScreen} />

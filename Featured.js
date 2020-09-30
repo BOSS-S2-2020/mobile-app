@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-
+import styles from './Styles'
 class Featured extends React.Component {
     render() {
         return (
@@ -18,31 +17,5 @@ class Featured extends React.Component {
             )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    topBar: {
-        height: Constants.statusBarHeight,
-        backgroundColor: 'darkolivegreen',
-        width: '100%',
-    },
-    title: {
-        top: 0,
-        width: '100%',
-        backgroundColor: 'darkolivegreen',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    titleFont: {
-        color: 'white',
-        fontSize: 30,
-        padding: 10,
-    }
-});
-
 
 export default Featured;
