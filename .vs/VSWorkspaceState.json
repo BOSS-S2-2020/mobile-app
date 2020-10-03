@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.expo",
+    "\\.expo-shared",
     "\\assets",
     "\\resources"
   ],
-  "SelectedNode": "\\.expo",
+  "SelectedNode": "\\resources\\FeaturedDatabase.js",
   "PreviewInSolutionExplorer": false
 }

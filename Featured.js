@@ -1,6 +1,17 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import styles from './Styles'
+
+
+const WalkItem = ({WalkkName,Park,Duratoion,MapLink}) => (
+    <View>
+        <Text>WalkkName</Text>
+        <Text>Park</Text>
+        <Text>Duratoion</Text>
+        <Button title="Download Map" onPress={() => Linking.openURl(MapLink)}/>
+    </View>
+
+);
 class Featured extends React.Component {
     render() {
         return (

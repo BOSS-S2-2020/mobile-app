@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 //Import Screens
 import Featured from './Featured'
 import Map from './Map'
@@ -33,9 +33,9 @@ function Tabs() {
                     } else if (route.name === 'Search') {
                         iconName = focused ? 'search' : 'search';
                     } else if (route.name === 'Account') {
-                        iconName = focused ? 'user' : 'user';
+                        iconName = focused ? 'user-alt' : 'user';
                     }
-                    return <FontAwesome name={iconName} size={size} color={color} />;
+                    return <FontAwesome5 name={iconName} size={size} color={color} />;
                 },
             })}
             //Sets Tab Colours

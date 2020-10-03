@@ -3,9 +3,6 @@ import { View, Text, Button, TextInput } from 'react-native';
 import Styles from './Styles'
 import AccountDatabase from './resources/AccountDatabase'
 
-
-AccountDatabase.createAccount("Max2", "NotMax@email.com", 1, "0433322322", "ihatewalkz");
-
 global.isSignedIn = false;
 var enterAccount = 0;
 /*
