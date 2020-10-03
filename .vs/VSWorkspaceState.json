@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\assets",
+    "\\resources"
   ],
-  "SelectedNode": "\\Styles.js",
+  "SelectedNode": "\\.expo",
   "PreviewInSolutionExplorer": false
 }
