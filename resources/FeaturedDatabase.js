@@ -12,6 +12,7 @@ var FeaturedDatabase = {
                         startPoint: parsedRes[key].StartPoint,
                         walkName: parsedRes[key].WalkName,
                         mapLink: parsedRes[key].MapURL,
+                        waypoint: parsedRes[key].Waypoints,
                         id:key
                     })
                 }
