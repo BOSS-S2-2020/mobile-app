@@ -54,6 +54,35 @@ const styles = StyleSheet.create({
     bottomView:{
         marginVertical:'50%',
         
+    },
+    //for Featured.js
+    itemView:{
+        backgroundColor:"lightgray",
+        marginVertical:"5%",
+        borderColor:"white",
+        borderWidth:2,
+        borderRadius:10,
+        alignItems:"center",
+        padding:4
+    },
+    itemTitle:{
+        fontSize:30,
+    },
+    itemSubtitle:{
+        fontSize:25
+    },
+    itemBottomBar:{
+        backgroundColor:"#85c47c",
+        padding:10,
+        borderColor:"black",
+        borderTopWidth:2,
+        borderBottomWidth:2,
+        alignItems:"center"
+    },
+    itemBottomItem:{
+        borderColor:"black",
+        borderWidth:2,
+        
     }
 });
 

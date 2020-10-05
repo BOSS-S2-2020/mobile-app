@@ -32,7 +32,7 @@ class Account extends React.Component {
                             <View style={Styles.spacer}></View>
                             <Button title="New Account" onPress={() => console.log(AccountDatabase.getAccountInfo())} />
                             <View style={Styles.spacer}></View>
-                            <Button title="Forgot Password" onPress={() => console.log(AccountDatabase.setAccount("Max Kaeding", "ilove2walk"))
+                            <Button title="Forgot Password" onPress={() => console.log(1)
 } />                            
                         </View>
                     </View>
