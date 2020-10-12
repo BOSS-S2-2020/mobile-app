@@ -3,29 +3,31 @@ var AccountDatabase = {
     selectedKey: undefined,
     userArray: [],
     setAccount: function (username, password) {
-        fetch(this.url)
-            .then(res => res.json())
-            .then(parsedRes => { 
-                for (const key in parsedRes) {
-                    this.userArray.push({
-                        Name: parsedRes[key].Name,
-                        Password: parsedRes[key].Password,
-                        id: key
-                    })
-                    if (parsedRes[key].Name === username && parsedRes[key].Password === password) {
+                for (const key in this.userArray) {
+                    if (this.userArray[key].Name === username && this.userArray[key].Password === password) {
                         this.selectedKey = key;
+                        return true
                     }
                 }
-            })
-            .catch(err => console.log(err))
+                return false
     },
     getAccountInfo: function () {
         if (this.selectedKey != undefined) {
-            return this.selectedKey
+            const acc = this.userArray[this.selectedKey]
+            return acc
         }
-        return 404
+        console.error("Warning! No Account Found. Please Ensure that this function can only be called afer AccountDatabase.setAccount()")
+    },
+    getExistingAccount: function (username) {
+        for (const key in this.userArray){
+            if(this.userArray[key].Name === username){
+                return true
+            }
+            else return false
+        }
     },
     createAccount: function (username, email, emergancyAlert, phone, password) {
+        console.log(1)
         fetch(this.url, {
             method: 'POST',
             body: JSON.stringify({
@@ -42,6 +44,22 @@ var AccountDatabase = {
     changeAccountInfo: function (varToChange, change) {
         /*TODO*/
         return false;
+    },
+    loadAccounts: function (){
+        fetch(this.url)
+        .then(res => res.json())
+        .then(parsedRes => { 
+            for (const key in parsedRes) {
+                this.userArray.push({
+                    Name: parsedRes[key].Name,
+                    Password: parsedRes[key].Password,
+                    Email: parsedRes[key].Email,
+                    Phone: parsedRes[key].Phone,
+                    EmergancyAlert: parsedRes[key].EmergancyAlert 
+                })
+            }
+        })
+        .catch(err => console.log(err))
     }
 
 };

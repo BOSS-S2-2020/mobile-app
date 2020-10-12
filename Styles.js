@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
@@ -52,8 +52,40 @@ const styles = StyleSheet.create({
         marginTop:'20%'
     } ,
     bottomView:{
-        marginVertical:'50%',
+        marginVertical:'2%',
         
+    },
+    signupContainerContent: {
+        marginVertical:10
+    },
+    signupBox: {
+        borderColor: '#85c47c',
+        borderWidth: 2,
+        borderRadius: 10,
+        width:"80%",
+        padding: 5,
+        
+    } ,
+    switchBox:{
+        flexDirection:"row",
+        marginLeft:"20%",
+        marginRight:"20%",
+        marginVertical:10
+    },
+    gridViewRow:{
+        flexDirection:"row",
+        marginVertical:"5%",
+        width:"100%",
+        marginLeft:10
+    },
+    gridRowChild:{
+        marginHorizontal:50,
+        fontSize:15,
+    },
+    gridRowHeader:{
+        color:"#85c47c",
+        fontWeight:"bold",
+        alignContent:"flex-start"
     },
     //for Featured.js
     itemView:{
@@ -83,7 +115,12 @@ const styles = StyleSheet.create({
         borderColor:"black",
         borderWidth:2,
         
-    }
+    },
+    mapStyle: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+      },
 });
+
 
 export default styles
