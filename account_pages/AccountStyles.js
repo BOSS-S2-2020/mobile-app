@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -33,7 +32,8 @@ const styles = StyleSheet.create({
     },
     loginContainerContent: {
         top:'10%',
-        marginVertical:10
+        marginVertical:10,
+        alignItems: 'center',
     },
     loginTitle: {
         fontSize:20,
@@ -80,46 +80,19 @@ const styles = StyleSheet.create({
     gridRowChild:{
         marginHorizontal:50,
         fontSize:15,
+        width:"70%"
     },
     gridRowHeader:{
         color:"#85c47c",
         fontWeight:"bold",
-        alignContent:"flex-start"
+        alignContent:"flex-start",
+        width:"30%"
     },
-    //for Featured.js
-    itemView:{
-        backgroundColor:"lightgray",
-        marginVertical:"5%",
-        borderColor:"white",
-        borderWidth:2,
-        borderRadius:10,
-        alignItems:"center",
-        padding:4
-    },
-    itemTitle:{
-        fontSize:30,
-    },
-    itemSubtitle:{
-        fontSize:25
-    },
-    itemBottomBar:{
-        backgroundColor:"#85c47c",
-        padding:10,
+    divider:{
+        height:1,
         borderColor:"black",
-        borderTopWidth:2,
-        borderBottomWidth:2,
-        alignItems:"center"
+        borderWidth:1,
+        width:"100%"
     },
-    itemBottomItem:{
-        borderColor:"black",
-        borderWidth:2,
-        
-    },
-    mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-      },
-});
-
-
-export default styles
+})
+export default styles;

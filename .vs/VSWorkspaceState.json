@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.expo",
+    "\\.expo-shared",
     "\\assets",
+    "\\mapAssets",
     "\\resources"
   ],
-  "SelectedNode": "\\resources\\AccountDatabase.js",
+  "SelectedNode": "\\debug.log",
   "PreviewInSolutionExplorer": false
 }
