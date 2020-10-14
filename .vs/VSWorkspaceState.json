@@ -2,11 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\.expo",
-    "\\.expo-shared",
     "\\assets",
-    "\\mapAssets",
     "\\resources"
   ],
-  "SelectedNode": "\\debug.log",
+  "SelectedNode": "\\Map.js",
   "PreviewInSolutionExplorer": false
 }
