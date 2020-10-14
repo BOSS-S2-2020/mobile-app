@@ -4,6 +4,7 @@ import MapView, {
     Animated,
     TouchableOpacity,
     Platform } from 'react-native-maps';
+import MapData from './MapData';
 
 class Map extends React.Component {
     //state = {
@@ -24,15 +25,8 @@ class Map extends React.Component {
                     provider={PROVIDER_GOOGLE}
                    // customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
                 >
-                    {state.markers.map((marker, index) => {
-                        const scaleStyle = {
-                            transform: [
-                                {
-                                    scale: interpolations[index].scale,
-                                },
-                            ],
-                        };
-                        return (
+            
+               
                             <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
                                 <Animated.View style={[styles.markerWrap]}>
                                     <Animated.Image
@@ -42,8 +36,7 @@ class Map extends React.Component {
                                     />
                                 </Animated.View>
                             </MapView.Marker>
-                        );
-                    })}
+                    
                 </MapView>
                 <View style={styles.searchBox}>
                     <TextInput

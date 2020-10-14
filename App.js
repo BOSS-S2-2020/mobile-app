@@ -10,7 +10,7 @@ import Parks from './Parks'
 import Search from './Search'
 import Account from './Account'
 //Code that determains what is held on each screen
-function MapScreen() { return (/*<Map></Map>*/<View></View>); }
+function MapScreen() { return (<Map></Map>); }
 function ParksScreen() { return (<Parks></Parks>); }
 function FeaturedScreen() { return (<Featured></Featured>); }
 function SearchScreen() { return (<Search></Search>); }
