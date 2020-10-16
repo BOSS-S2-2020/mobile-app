@@ -26,37 +26,90 @@ const styles = StyleSheet.create({
         fontSize: 30,
         padding: 10,
     },
-    //for Featured.js
-    itemView:{
-        marginVertical:"5%",
-        borderColor:"black",
-        borderWidth:2,
-        alignItems:"center",
-        padding:4
+    //for FeaturedHome.js
+    //Search bar
+    searchBar : {
+        height:"100%",
+        width:"70%",
+        backgroundColor:"#f2f2f2",
+        borderRadius:50,
+        padding:5,
+        marginHorizontal:20
     },
-    itemTitle:{
-        fontSize:30,
+    searchButton : {
+        justifyContent:"center"
     },
-    itemSubtitle:{
-        fontSize:25
+    searchView : {
+        flexDirection: 'row',
+        width:"80%",
+        marginVertical:10
     },
-    itemBottomBar:{
-        backgroundColor:"#85c47c",
-        padding:10,
-        borderColor:"black",
-        borderTopWidth:2,
+    //Carousel
+    slide: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9DD6EB',
+      height:"40%",
+    },
+    swipeView : {
+        height:"60%",
+        width:"90%",
+        backgroundColor:"lightgray",
+    },
+    carouselBackground : {
+        flex: 1,
+        resizeMode: "cover",
+        width:"100%",
+    },
+    carouselInnerView : {
+        marginTop:"auto",
+        width:"100%",
+        backgroundColor:'rgba(255,255,255,0.5)',
+    },
+    //Filters
+    filterView : {
+        marginVertical:"-40%",
+        flexDirection: "row"
+    },
+    filterButton : {
+        backgroundColor : '#85c47c',
+        borderRadius: 50,
+        marginHorizontal:"7%",
+        padding:5,
+        width:"12%",
+        height:"30%",
+        justifyContent:"center"
+    },
+    //List
+    ListView : {
+        borderTopWidth:1,
+        top:"10%",
+        width:"100%",
+    },
+    ListItem : {
+        flexDirection:"row",
+        width:"100%",
         borderBottomWidth:2,
-        alignItems:"center"
+        borderColor:"lightgrey",
+        paddingTop:"2%",
+        paddingBottom:"2%",
+        paddingLeft:"1%"
     },
-    itemBottomItem:{
-        borderColor:"black",
-        borderWidth:2,
-        
+    ListTitle : {
+
     },
-    mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-      },
+    ListSubtitle : {
+        fontSize:11
+    },
+    ListStyle : {
+        height:"100%"
+    },
+    ListDuration : {
+        marginLeft:'auto',
+        marginRight:"5%",
+      
+    }
 });
 
 
