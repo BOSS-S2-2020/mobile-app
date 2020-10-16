@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput,} from 'react-native';
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import { locations } from './resources/MapData'
-import { directions } from '.resources/MapLive'
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MapLive from './resources/MapLive';
 
 
 const { width } = Dimensions.get("window");
@@ -166,7 +167,7 @@ const Map = () => {
                      
                         <View style={styles.button}>         
                             <TouchableOpacity
-                                onPress={() => {directions}} //button 
+                                onPress={() => {MapLive}} //button 
                                 style={[styles.signIn, {
                                     borderColor: '#FF6347',
                                     borderWidth: 2

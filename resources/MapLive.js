@@ -11,10 +11,10 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
-const directions = () => {
-    class MapLive extends Component {
 
-        constructor(props) {
+class MapLive extends Component {
+  
+        constructor(props){
             super(props);
 
             //start to distnation 
@@ -33,7 +33,7 @@ const directions = () => {
 
             this.mapView = null;
         }
-
+    
         onMapPress = (e) => {
             this.setState({
                 coordinates: [
@@ -45,6 +45,7 @@ const directions = () => {
 
         render() {
             return (
+                
                 <MapView
                     initialRegion={{
                         latitude: LATITUDE,
@@ -90,9 +91,11 @@ const directions = () => {
                         />
                     )}
                 </MapView>
+            
             );
         }
     }
-}
+
+
 export default MapLive;
 
