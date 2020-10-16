@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, Animated, Dimensions} from 'react-native';
+import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput,} from 'react-native';
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import { locations } from './resources/MapData'
+import { directions } from '.resources/MapLive'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-//class Map extends React.Component {
-   
-//    render() {
-//        return (
+
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = width * 0.8;
-const CARD_HEIGHT = 220;
+
 
 const Map = () => {
   
@@ -122,6 +121,15 @@ const Map = () => {
             })}
         </MapView>
 
+            <View style={styles.searchBox}>
+                <TextInput
+                    placeholder="Search here"  //searchBox
+                    placeholderTextColor="#000"
+                    autoCapitalize="none"
+                    style={{ flex: 1, padding: 0 }}
+                />
+                <Ionicons name="ios-search" size={20} />
+            </View>
 
         <Animated.ScrollView
             horizontal
@@ -152,9 +160,23 @@ const Map = () => {
                         resizeMode="cover"
                     />
                     <View style={styles.textContent}>
-                        <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                        <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
                         
+                        <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+                        <Text numberOfLines={6} style={styles.cardDescription}>{marker.description}</Text>
+                     
+                        <View style={styles.button}>         
+                            <TouchableOpacity
+                                onPress={() => {directions}} //button 
+                                style={[styles.signIn, {
+                                    borderColor: '#FF6347',
+                                    borderWidth: 2
+                                }]}
+                            >
+                                <Text style={[styles.textSign, {
+                                    color: '#FF6347'
+                                }]}>Start Walk </Text>
+                            </TouchableOpacity>
+                        </View> 
                     </View>
                 </View>
             ))}
@@ -181,7 +203,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.3,
         shadowOffset: { x: 2, y: -2 },
-        height: CARD_HEIGHT,
+        height:"100%",
         width: CARD_WIDTH,
         overflow: "hidden",
     },
@@ -213,5 +235,35 @@ const styles = StyleSheet.create({
     marker: {
         width: 30,
         height: 30,
+    },
+    button: {
+        alignItems: 'center',
+        marginTop: 5
+    },
+    signIn: {
+        width: '100%',
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 3
+    },
+    textSign: {
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    searchBox: {
+        position: 'absolute',
+        marginTop: Platform.OS === 'ios' ? 40 : 20,
+        flexDirection: "row",
+        backgroundColor: '#fff',
+        width: '90%',
+        alignSelf: 'center',
+        borderRadius: 5,
+        padding: 10,
+        shadowColor: '#ccc',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 10,
     },
 });
