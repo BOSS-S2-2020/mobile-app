@@ -2,6 +2,10 @@ import React from 'react'
 import { View, Text, FlatList,Image} from 'react-native';
 import Styles from './FeaturedStyles'
 
+var comp;
+function setSearch(){
+    console.log(comp.state.search)
+}
 const ListItem = ({walkName,subtitle,duration}) => {
     return(
     <View style={Styles.ListItem}>
@@ -39,6 +43,8 @@ const renderItem = ({item}) => (
 const FeaturedList = (props) => {
     const data = []
     populateData(props.walks,data,props.timeFilter)
+    comp = props.comp
+    setSearch()
     return(
         <FlatList
             data={data}

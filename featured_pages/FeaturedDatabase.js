@@ -1,5 +1,3 @@
-import { cos } from "react-native-reanimated"
-
 var FeaturedDatabase = {
     url: "https://boss-bushwalkers.firebaseio.com/walks.json",
     parksArray: [],
