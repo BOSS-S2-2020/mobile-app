@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput,} from 'react-native';
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import { locations } from './resources/MapData'
-
+import getDirections from 'react-native-google-maps-directions'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapLive from './resources/MapLive';
 
@@ -10,10 +10,9 @@ import MapLive from './resources/MapLive';
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = width * 0.8;
 
-
+var isLive = false
 const Map = () => {
   
-
     const initialMapState = {
         locations,
         region: {
@@ -22,6 +21,7 @@ const Map = () => {
             latitudeDelta: 0.09,
             longitudeDelta: 0.035,
         },
+        isLive : false
 
     };
    const [state, setState] = React.useState(initialMapState);
@@ -58,6 +58,32 @@ const Map = () => {
         });
     });
 
+    //directions from google map
+   const handleGetDirections = () => {
+        const data = {
+            source: {
+                latitude: -35.272908,
+                longitude: 149.080073
+            },
+            destination: {
+                latitude: -35.269144,
+                longitude: 149.080370,
+            },
+            params: [
+                {
+                    key: "travelmode",
+                    value: "walking"        // may be "walking", "bicycling" or "transit" as well
+                },
+                {
+                    key: "dir_action",
+                    value: "navigate"       // this instantly initializes navigation using the given travel mode
+                }
+            ]
+        }
+
+        getDirections(data)
+    }
+
 
     const interpolations = state.locations.map((marker, index) => {
         const inputRange = [
@@ -88,104 +114,112 @@ const Map = () => {
     const _map = React.useRef(null);
     const _scrollView = React.useRef(null);
 
-  
 
-    return (
+    if (isLive) {
+        return(
+        <MapLive/>
+        )
+     }
+    if (!isLive) {
+        return (
 
-    <View style={styles.container}>
-        <MapView
-            ref={_map}
-            initialRegion={state.region}
-            style={styles.container}
-            provider={PROVIDER_GOOGLE}
-           
-        >
-            {state.locations.map((marker, index) => {
-                const scaleStyle = {
-                    transform: [
-                        {
-                            scale: interpolations[index].scale,
-                        },
-                    ],
-                };
-                return (
-                    <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
-                        <Animated.View style={[styles.markerWrap]}>
-                            <Animated.Image
-                                source={require('./assets/map_marker.png')}
-                                style={[styles.marker, scaleStyle]}
+            <View style={styles.container}>
+                <MapView
+                    ref={_map}
+                    initialRegion={state.region}
+                    style={styles.container}
+                    provider={PROVIDER_GOOGLE}
+
+                >
+                    {state.locations.map((marker, index) => {
+                        const scaleStyle = {
+                            transform: [
+                                {
+                                    scale: interpolations[index].scale,
+                                },
+                            ],
+                        };
+                        return (
+                            <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+                                <Animated.View style={[styles.markerWrap]}>
+                                    <Animated.Image
+                                        source={require('./assets/map_marker.png')}
+                                        style={[styles.marker, scaleStyle]}
+                                        resizeMode="cover"
+                                    />
+                                </Animated.View>
+                            </MapView.Marker>
+                        );
+                    })}
+                </MapView>
+
+                <View style={styles.searchBox}>
+                    <TextInput
+                        placeholder="Search here"  //searchBox
+                        placeholderTextColor="#000"
+                        autoCapitalize="none"
+                        style={{ flex: 1, padding: 0 }}
+                    />
+                    <Ionicons name="ios-search" size={20} />
+                </View>
+
+                <Animated.ScrollView
+                    horizontal
+                    scrollEventThrottle={1}
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.scrollView}
+                    pagingEnabled
+                    snapToInterval={CARD_WIDTH + 20}
+                    snapToAlignment="center"
+                    onScroll={Animated.event(
+                        [
+                            {
+                                nativeEvent: {
+                                    contentOffset: {
+                                        x: mapAnimation,
+                                    }
+                                },
+                            },
+                        ],
+                        { useNativeDriver: true }
+                    )}
+                >
+                    {state.locations.map((marker, index) => (
+                        <View style={styles.card} key={index}>
+                            <Image
+                                source={marker.image}
+                                style={styles.cardImage}
                                 resizeMode="cover"
                             />
-                        </Animated.View>
-                    </MapView.Marker>
-                );
-            })}
-        </MapView>
+                            <View style={styles.textContent}>
 
-            <View style={styles.searchBox}>
-                <TextInput
-                    placeholder="Search here"  //searchBox
-                    placeholderTextColor="#000"
-                    autoCapitalize="none"
-                    style={{ flex: 1, padding: 0 }}
-                />
-                <Ionicons name="ios-search" size={20} />
+                                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+                                <Text numberOfLines={6} style={styles.cardDescription}>{marker.description}</Text>
+
+                                <View style={styles.button}>
+                                    <TouchableOpacity
+                                        onPress={changeLive(this)} //button 
+                                        style={[styles.signIn, {
+                                            borderColor: '#FF6347',
+                                            borderWidth: 2
+                                        }]}
+                                    >
+                                        <Text style={[styles.textSign, {
+                                            color: '#FF6347'
+                                        }]}>Start Walk </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    ))}
+                </Animated.ScrollView>
             </View>
-
-        <Animated.ScrollView
-            horizontal
-            scrollEventThrottle={1}
-            showsHorizontalScrollIndicator={false}
-            style={styles.scrollView}
-            pagingEnabled
-            snapToInterval={CARD_WIDTH + 20}
-            snapToAlignment="center"
-            onScroll={Animated.event(
-                [
-                    {
-                        nativeEvent: {
-                            contentOffset: {
-                                x: mapAnimation,
-                            }
-                        },
-                    },
-                ],
-                { useNativeDriver: true }
-            )}
-        >
-            {state.locations.map((marker, index) => (
-                <View style={styles.card} key={index}>
-                    <Image
-                        source={marker.image}
-                        style={styles.cardImage}
-                        resizeMode="cover"
-                    />
-                    <View style={styles.textContent}>
-                        
-                        <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                        <Text numberOfLines={6} style={styles.cardDescription}>{marker.description}</Text>
-                     
-                        <View style={styles.button}>         
-                            <TouchableOpacity
-                                onPress={() => {MapLive}} //button 
-                                style={[styles.signIn, {
-                                    borderColor: '#FF6347',
-                                    borderWidth: 2
-                                }]}
-                            >
-                                <Text style={[styles.textSign, {
-                                    color: '#FF6347'
-                                }]}>Start Walk </Text>
-                            </TouchableOpacity>
-                        </View> 
-                    </View>
-                </View>
-            ))}
-        </Animated.ScrollView>
-    </View>
-);
-    
+        );
+        
+    }
+    function changeLive(comp) { isLive = true;console.log(isLive)}
 };
+
      
 export default Map;
 
