@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         padding:"2%",
         backgroundColor:"#85c47c",
         marginVertical:"5%",
-        height:"15%",
+        height:"10%",
         justifyContent:"center"
     },
     searchButtonText:{

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, Linking, Alert} from 'react-native';
 import Styles from './FeaturedStyles'
 import { FontAwesome5 } from '@expo/vector-icons';
 const FeaturedSearch = (props) => {
@@ -25,10 +25,28 @@ const FeaturedSearch = (props) => {
                     <Text>{props.item.duration}</Text>
                 </View>
             </View>
-            <TouchableOpacity style={Styles.SearchButton}>
+            <TouchableOpacity style={Styles.SearchButton} onPress={() => {Linking.openURL(props.item.mapURL)}}>
                 <Text style={Styles.searchButtonText}>Download Map</Text>
             </TouchableOpacity>
-            
+            <TouchableOpacity style={Styles.SearchButton} onPress={() => {
+                url = "https://boss-bushwalkers.firebaseio.com/walkRegistrations.json"
+                if(global.userAccount != undefined){
+                fetch(url,{
+                    method: 'POST',
+                    body : JSON.stringify({
+                        user : global.userAccount.name,
+                        walkName : props.item.walkName,
+                        parkName : props.item.parkName,
+                        EA : global.userAccount.emergancyAlert,
+                        TimeRegistered : Date.parse(new Date())
+                    })
+                })
+                }else{
+                    Alert.alert("Please log in first")
+                }
+            }}>
+                <Text style={Styles.searchButtonText}>Register for Walk</Text>
+            </TouchableOpacity>
             
         </View>
     )
@@ -36,6 +54,3 @@ const FeaturedSearch = (props) => {
 
 export default FeaturedSearch
 
-//<TouchableOpacity style={Styles.SearchButton}>
-//<Text style={Styles.searchButtonText}>Go To Live Map</Text>
-//</TouchableOpacity>

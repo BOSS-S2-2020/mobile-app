@@ -12,7 +12,7 @@ var FeaturedDatabase = {
                         duration: parsedRes[key].Duration,
                         park: parsedRes[key].Park,
                         walkName: parsedRes[key].WalkName,
-                        mapLink: parsedRes[key].MapURL,
+                        mapURL: parsedRes[key].MapURL,
                         image:parsedRes[key].Image,
                         id:key
                     })

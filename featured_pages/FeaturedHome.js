@@ -7,16 +7,18 @@ import FeaturedList from './FeaturedList';
 import FeaturedDatabase from './FeaturedDatabase'
 import FeaturedSearch from './FeaturedSearch';
 
+var comp;
+
 const SearchSection = (props) => {
 
-    if(props.comp.state.search == true){
+    if(props.comp.state.search == false){
         return(
     <View></View>
         )
     }else{
         return(
         <View style={Styles.SearchCard}>
-            <FeaturedSearch reset={() => {props.comp.setState({search:true})}} item={props.comp.state.searchItem}/>
+            <FeaturedSearch reset={() => {props.comp.setState({search:false})}} item={props.comp.state.searchItem}/>
         </View>
         )
     }
@@ -25,10 +27,11 @@ class FeaturedHome extends React.Component{
     state = {
         walksArray : [{walkName:"loading",parkName:"loading",duration:1,image:"https://reactjs.org/logo-og.png"}],
         timeFilter : 20000,
+        textFilter : "",
         search : false,
-        searchItem : {walkName:"loading",parkName:"loading",duration:1,mapURL:"https://www.google.com"}
+        searchItem : {walkName:"test"}
     }
-    
+    comp = this
     render(){
         FeaturedDatabase.loadParks(this)
     return (
@@ -39,15 +42,14 @@ class FeaturedHome extends React.Component{
             </View>
             
             <View style={Styles.searchView}>
-                <TextInput style={Styles.searchBar} placeholder="Search Parks"></TextInput>
+                <TextInput style={Styles.searchBar} placeholder="Search Parks" onChangeText={(text) => this.setState({textFilter:text})}></TextInput>
                 <View style={Styles.searchButton}><FontAwesome5 name='search' size={25} color='black'/></View>
             </View>
 
             <View>
                 <FeaturedCarousel walks={this.state.walksArray}/>
             </View>
-            <View style={Styles.filterView}>
-                
+            <View style={Styles.filterView}>            
                 <TouchableOpacity style={Styles.filterButton} onPress={() => {this.setState({timeFilter : 30})}}>
                     <Text>{">"}30m</Text>
                 </TouchableOpacity>
@@ -57,13 +59,13 @@ class FeaturedHome extends React.Component{
                 <TouchableOpacity style={Styles.filterButton} onPress={() => {this.setState({timeFilter : 400})}}>
                     <Text>{">"}4hr</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={Styles.filterButton} onPress={() => {this.setState({search:false})}}>
+                <TouchableOpacity style={Styles.filterButton} onPress={() => {this.setState({timeFilter : 20000})}}>
                     <Text>Reset</Text>
                 </TouchableOpacity>
             </View>
 
         <View style={Styles.ListView}>
-            <FeaturedList walks={this.state.walksArray.push} timeFilter={this.state.timeFilter} comp={this}  />
+            <FeaturedList walks={this.state.walksArray} timeFilter={this.state.timeFilter} textFilter={this.state.textFilter} comp={this}/>
         </View>
             <SearchSection comp={this} />
         </View>
