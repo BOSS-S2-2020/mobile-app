@@ -7,15 +7,15 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import Featured from './Featured'
 import Map from './Map'
 //import MapLive from './resources/MapLive'
-import Parks from './Parks'
-import Search from './Search'
-import Account from './Account'
+
+
 //Code that determains what is held on each screen
 function MapScreen() { return (<Map></Map>); }
 //function MapScreen() { return (<MapLive></MapLive>); }
-function ParksScreen() { return (<Parks></Parks>); }
+
+import Account from './Account'
+//Code that determains what is held on each screen
 function FeaturedScreen() { return (<Featured></Featured>); }
-function SearchScreen() { return (<Search></Search>); }
 function AccountScreen() { return (<Account></Account>);}
 //Creates the bottom tabs and assigns screens to each tab
 const Tab = createBottomTabNavigator();
@@ -28,12 +28,8 @@ function Tabs() {
                     let iconName;
                     if (route.name === 'Map') {
                         iconName = focused ? 'map' : 'map';
-                    } else if (route.name === 'Parks') {
+                    } else if (route.name === 'BOSS') {
                         iconName = focused ? 'tree' : 'tree';
-                    } else if (route.name === 'Featured') {
-                        iconName = focused ? 'home' : 'home';
-                    } else if (route.name === 'Search') {
-                        iconName = focused ? 'search' : 'search';
                     } else if (route.name === 'Account') {
                         iconName = focused ? 'user-alt' : 'user';
                     }
@@ -48,13 +44,11 @@ function Tabs() {
                 inactiveBackgroundColor:'#85c47c'
             }}
             //Sets Inital Selected Tab
-            initialRouteName={"Featured"}
+            initialRouteName={"BOSS"}
             
         >
             <Tab.Screen name="Map" component={MapScreen} />
-            <Tab.Screen name="Parks" component={ParksScreen} />
-            <Tab.Screen name="Featured" component={FeaturedScreen} />
-            <Tab.Screen name="Search" component={SearchScreen} />
+            <Tab.Screen name="BOSS" component={FeaturedScreen} />
             <Tab.Screen name="Account" component={AccountScreen} />
         </Tab.Navigator>
     );

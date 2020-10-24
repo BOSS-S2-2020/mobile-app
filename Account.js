@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Button, TextInput,Alert} from 'react-native';
-import Styles from './Styles'
 import AccountDatabase from './account_pages/AccountDatabase'
 
 import SignInPage from './account_pages/SignInPage'
