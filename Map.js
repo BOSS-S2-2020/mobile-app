@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput,} from 'react-native';
-import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
+import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput, } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { locations } from './resources/MapData'
 import getDirections from 'react-native-google-maps-directions'
-//import MapViewDirections from 'react-native-maps-directions'
+import MapViewDirections from 'react-native-maps-directions'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapLive from './resources/MapLive';
+import Toast from 'react-native-simple-toast';
 
 
-//const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
-const { width } = Dimensions.get("window");
+const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
+const { width, height } = Dimensions.get("window");
 const CARD_WIDTH = width * 0.8;
 const CARD_HEIGHT = 220;
 
@@ -23,9 +24,27 @@ const Map = () => {
             latitudeDelta: 0.09,
             longitudeDelta: 0.035,
         }
-
     };
+
+    const liveCoordinates = {
+        coordinates: [
+
+            {
+                latitude: -35.272908,
+                longitude: 149.080073,
+            },
+
+            {
+
+                latitude: -35.269144,
+                longitude: 149.080370,
+            }
+        ]
+    }
+
     const [state, setState] = React.useState(initialMapState);
+    const [liveCoordinateState, setLiveCoordinateState] = React.useState(liveCoordinates);
+    const [showAnimatedScroll, setShowAnimatedScroll] = React.useState(true);
 
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
@@ -57,6 +76,8 @@ const Map = () => {
                 }
             }, 10);
         });
+
+
     });
 
     //directions from google map
@@ -110,53 +131,98 @@ const Map = () => {
         }
 
         _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
-    } 
+    }
 
-   const _map = React.useRef(null);
-   const _scrollView = React.useRef(null);
+    const _map = React.useRef(null);
+    console.log("_map", _map)
+    console.log("_map.current", _map.current)
+
+    const _scrollView = React.useRef(null);
     
-        return (
+    console.log("liveCoordinateState.coordinates[0]", liveCoordinateState.coordinates[0])
+    // console.log("result.distance", result.distance)
 
-            <View style={styles.container}>
-                <MapView
-                    ref={_map}
-                    initialRegion={state.region}
-                    style={styles.container}
-                    provider={PROVIDER_GOOGLE}
 
-                >
-                    {state.locations.map((marker, index) => {
-                        const scaleStyle = {
-                            transform: [
-                                {
-                                    scale: interpolations[index].scale,
-                                },
-                            ],
-                        };
-                        return (
-                            <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
-                                <Animated.View style={[styles.markerWrap]}>
-                                    <Animated.Image
-                                        source={require('./assets/map_marker.png')}
-                                        style={[styles.marker, scaleStyle]}
-                                        resizeMode="cover"
-                                    />
-                                </Animated.View>
-                            </MapView.Marker>
-                        );
-                    })}
-                </MapView>
+    return (
 
-                <View style={styles.searchBox}>
-                    <TextInput
-                        placeholder="Search here"  //searchBox
-                        placeholderTextColor="#000"
-                        autoCapitalize="none"
-                        style={{ flex: 1, padding: 0 }}
+        <View style={styles.container}>
+            <MapView
+                ref={_map}
+                initialRegion={state.region}
+                style={styles.container}
+                provider={PROVIDER_GOOGLE}
+
+            >
+            { console.log("_map.current", _map.current)}
+                {state.locations.map((marker, index) => {
+                    const scaleStyle = {
+                        transform: [
+                            {
+                                scale: interpolations[index].scale,
+                            },
+                        ],
+                    };
+                    return (
+                        <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+                            <Animated.View style={[styles.markerWrap]}>
+                                <Animated.Image
+                                    source={require('./assets/map_marker.png')}
+                                    style={[styles.marker, scaleStyle]}
+                                    resizeMode="cover"
+                                />
+                            </Animated.View>
+                        </MapView.Marker>
+                    );
+                })}
+                {liveCoordinateState.coordinates.map((coordinate, index) =>
+                    <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} />
+                )}
+
+                {(liveCoordinateState.coordinates.length >= 2) && (
+                    <MapViewDirections
+                        origin={liveCoordinateState.coordinates[0]}
+                        // waypoints={(liveCoordinateState.coordinates.length > 2) ? liveCoordinateState.coordinates.slice(1, -1) : null}
+                        destination={liveCoordinateState.coordinates[liveCoordinateState.coordinates.length - 1]}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        strokeWidth={3}
+                        strokeColor="hotpink"
+                        optimizeWaypoints={true}
+                        onStart={(params) => {
+                            console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+                        }}
+                        onReady={(result) => {
+                            console.log(`Distance: ${result.distance} km`)
+                            console.log(`Duration: ${result.duration} min.`)
+
+                            _map.current.fitToCoordinates(result.coordinates, {
+                                edgePadding: {
+                                    right: (width / 20),
+                                    bottom: (height / 20),
+                                    left: (width / 20),
+                                    top: (height / 20),
+                                }
+                            });
+                        }}
+                        onError={(errorMessage) => {
+                            // console.log('GOT AN ERROR');
+                        }}
                     />
-                    <Ionicons name="ios-search" size={20} />
-                </View>
+                )}
+            </MapView>
 
+            <View style={styles.searchBox}>
+                <TextInput
+                    placeholder="Search here"  //searchBox
+                    placeholderTextColor="#000"
+                    autoCapitalize="none"
+                    style={{ flex: 1, padding: 0 }}
+                />
+                <Ionicons name="ios-search" size={20} />
+            </View>
+
+
+
+            { showAnimatedScroll &&
                 <Animated.ScrollView
                     horizontal
                     scrollEventThrottle={1}
@@ -192,11 +258,18 @@ const Map = () => {
 
                                 <View style={styles.button}>
                                     <TouchableOpacity
-                                        onPress={() => {
-                                            console.log("line 197")
-                                            return(
-                                                <MapLive></MapLive>
-                                            )
+                                        onPress={(e) => {
+                                            console.log("line 197", liveCoordinateState.coordinates);
+                                            setShowAnimatedScroll(true);
+                                            Toast.show('Click on a point in map to choose walking');
+                                            setLiveCoordinateState({
+                                                coordinates: [
+                                                    ...liveCoordinateState.coordinates, e.nativeEvent.coordinate
+                                                ]
+                                            });
+                                            console.log("e.nativeEvent.coordinate", e.nativeEvent.coordinate)
+
+
                                         }} //button 
                                         style={[styles.signIn, {
                                             borderColor: '#FF6347',
@@ -207,13 +280,13 @@ const Map = () => {
                                             color: '#FF6347'
                                         }]}>Start walk </Text>
                                     </TouchableOpacity>
-                                        <TouchableOpacity
+                                    <TouchableOpacity
                                         onPress={handleGetDirections} //button 
-                                            style={[styles.signIn, {
-                                                borderColor: '#FF6347',
-                                                borderWidth: 2
-                                            }]}
-                                        >
+                                        style={[styles.signIn, {
+                                            borderColor: '#FF6347',
+                                            borderWidth: 2
+                                        }]}
+                                    >
                                         <Text style={[styles.textSign, {
                                             color: '#FF6347'
                                         }]}>open Google APP </Text>
@@ -222,15 +295,17 @@ const Map = () => {
                             </View>
                         </View>
                     ))}
-                </Animated.ScrollView>
-            </View>
-        );
-        
-    
+                </Animated.ScrollView>}
+
+
+        </View>
+    );
+
+
 };
 
 
-   
+
 export default Map;
 
 const styles = StyleSheet.create({
@@ -238,7 +313,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        
+
         elevation: 2,
         backgroundColor: "#FFF",
         borderTopLeftRadius: 5,
@@ -248,7 +323,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.3,
         shadowOffset: { x: 2, y: -2 },
-        height:"100%",
+        height: "100%",
         width: CARD_WIDTH,
         overflow: "hidden",
     },
@@ -264,7 +339,7 @@ const styles = StyleSheet.create({
     },
     cardtitle: {
         fontSize: 12,
-      
+
         fontWeight: "bold",
     },
     cardDescription: {

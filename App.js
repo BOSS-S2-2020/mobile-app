@@ -6,11 +6,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 //Import Screens
 import Featured from './Featured'
 import Map from './Map'
-//import MapLive from './resources/MapLive'
+// import MapLive from './resources/MapLive'
 
 //Code that determains what is held on each screen
 function MapScreen() { return (<Map></Map>); }
-//function MapScreen() { return (<MapLive></MapLive>); }
+// function MapScreen() { return (<MapLive></MapLive>); }
 
 import Account from './Account'
 //Code that determains what is held on each screen
