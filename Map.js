@@ -3,16 +3,18 @@ import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, 
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import { locations } from './resources/MapData'
 import getDirections from 'react-native-google-maps-directions'
+//import MapViewDirections from 'react-native-maps-directions'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapLive from './resources/MapLive';
 
 
+//const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = width * 0.8;
+const CARD_HEIGHT = 220;
 
-var isLive = false
 const Map = () => {
-  
+
     const initialMapState = {
         locations,
         region: {
@@ -20,11 +22,10 @@ const Map = () => {
             longitude: 149.16670,
             latitudeDelta: 0.09,
             longitudeDelta: 0.035,
-        },
-        isLive : false
+        }
 
     };
-   const [state, setState] = React.useState(initialMapState);
+    const [state, setState] = React.useState(initialMapState);
 
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
@@ -59,7 +60,7 @@ const Map = () => {
     });
 
     //directions from google map
-   const handleGetDirections = () => {
+    const handleGetDirections = () => {
         const data = {
             source: {
                 latitude: -35.272908,
@@ -109,18 +110,11 @@ const Map = () => {
         }
 
         _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
-    }
+    } 
 
-    const _map = React.useRef(null);
-    const _scrollView = React.useRef(null);
-
-
-    if (isLive) {
-        return(
-        <MapLive/>
-        )
-     }
-    if (!isLive) {
+   const _map = React.useRef(null);
+   const _scrollView = React.useRef(null);
+    
         return (
 
             <View style={styles.container}>
@@ -198,7 +192,12 @@ const Map = () => {
 
                                 <View style={styles.button}>
                                     <TouchableOpacity
-                                        onPress={changeLive(this)} //button 
+                                        onPress={() => {
+                                            console.log("line 197")
+                                            return(
+                                                <MapLive></MapLive>
+                                            )
+                                        }} //button 
                                         style={[styles.signIn, {
                                             borderColor: '#FF6347',
                                             borderWidth: 2
@@ -206,7 +205,18 @@ const Map = () => {
                                     >
                                         <Text style={[styles.textSign, {
                                             color: '#FF6347'
-                                        }]}>Start Walk </Text>
+                                        }]}>Start walk </Text>
+                                    </TouchableOpacity>
+                                        <TouchableOpacity
+                                        onPress={handleGetDirections} //button 
+                                            style={[styles.signIn, {
+                                                borderColor: '#FF6347',
+                                                borderWidth: 2
+                                            }]}
+                                        >
+                                        <Text style={[styles.textSign, {
+                                            color: '#FF6347'
+                                        }]}>open Google APP </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -216,11 +226,11 @@ const Map = () => {
             </View>
         );
         
-    }
-    function changeLive(comp) { isLive = true;console.log(isLive)}
+    
 };
 
-     
+
+   
 export default Map;
 
 const styles = StyleSheet.create({

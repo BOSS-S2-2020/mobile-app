@@ -4,6 +4,21 @@ const Images = [
     { image: require('../assets/park3.jpg') },
   
 ];
+//const walks = [
+//    {
+//        coordinates: {
+//            latitude: -35.272908,
+//            longitude: 149.080073,
+//        }
+//    },
+//    {
+//        coordinates: {
+
+//            latitude: -35.269144,
+//            longitude: 149.080370,
+//        }
+//    },
+//];
 
 export const locations = [
     {
@@ -14,8 +29,12 @@ export const locations = [
         title: "Aranda Bushlland Nuture Reserve",
         description: "Aranda Bushland is an important part of the wooded area which extends from Black Mountain to the Molonglo and Murrumbidgee river corridors.",
         image: Images[0].image,
+        //  orgion: walks[0].coordinates,
+        //  destination:walks[1].coordinates,
     },
+
     {
+
         coordinate: {
             latitude: - 35.269278,
             longitude: 149.163692,
@@ -32,6 +51,6 @@ export const locations = [
         title: "Red Hill Nature Reserve",
         description: "Red Hill Nature Reserve (293 hectares) is a prominent hill located between Woden Valley and south Canberra.It makes an impressive ‘Bush Capital’ back drop to Parliament House.",
         image: Images[2].image,
-       
+
     },
 ]

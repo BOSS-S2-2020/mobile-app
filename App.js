@@ -8,7 +8,6 @@ import Featured from './Featured'
 import Map from './Map'
 //import MapLive from './resources/MapLive'
 
-
 //Code that determains what is held on each screen
 function MapScreen() { return (<Map></Map>); }
 //function MapScreen() { return (<MapLive></MapLive>); }

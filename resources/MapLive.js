@@ -1,44 +1,51 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-//import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+//import Geolocation from '@react-native-community/geolocation';
 
+//import {walks} from './MapLiveData' 
 const { width, height } = Dimensions.get('window');
-//const ASPECT_RATIO = width / height;
-//const LATITUDE = -35.2637855;
-//const LONGITUDE = 149.0738633;
-//const LATITUDE_DELTA = 0.0922;
-//const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const ASPECT_RATIO = width / height;
+const LATITUDE = -35.35000;
+const LONGITUDE = 149.16670;
+const LATITUDE_DELTA = 0.09;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
 
-class MapLive extends Component {
-  
-        constructor(props){
+
+    class MapLive extends Component {
+
+        constructor(props) {
             super(props);
 
-            //start to distnation 
+            console.log("line 23", this.props.coordinates);
+
             this.state = {
                 coordinates: [
+
                     {
                         latitude: -35.272908,
                         longitude: 149.080073,
                     },
+
                     {
+
                         latitude: -35.269144,
                         longitude: 149.080370,
-                    },
+                    }
                 ],
             };
-
-            this.mapView = null;
+            this.MapView = null;
         }
-    
+
         onMapPress = (e) => {
+            console.log("line 44 onMapPress called");
             this.setState({
                 coordinates: [
                     ...this.state.coordinates,
+                    // this.props.coordinates,
                     e.nativeEvent.coordinate,
                 ],
             });
@@ -46,18 +53,16 @@ class MapLive extends Component {
 
         render() {
             return (
-                
                 <MapView
                     initialRegion={{
-                        latitude: -35.2637855,
-                        longitude: 149.0738633,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0922,
+                        latitude: LATITUDE,
+                        longitude: LONGITUDE,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
                     }}
                     style={StyleSheet.absoluteFill}
                     ref={c => this.mapView = c}
                     onPress={this.onMapPress}
-                    provider={PROVIDER_GOOGLE}
                 >
                     {this.state.coordinates.map((coordinate, index) =>
                         <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} />
@@ -65,10 +70,9 @@ class MapLive extends Component {
                     {(this.state.coordinates.length >= 2) && (
                         <MapViewDirections
                             origin={this.state.coordinates[0]}
-                            //waypoints={(this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1) : null}
+                            // waypoints={(this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1) : null}
                             destination={this.state.coordinates[this.state.coordinates.length - 1]}
                             apikey={GOOGLE_MAPS_APIKEY}
-                            provider={PROVIDER_GOOGLE}
                             strokeWidth={3}
                             strokeColor="hotpink"
                             optimizeWaypoints={true}
@@ -94,11 +98,11 @@ class MapLive extends Component {
                         />
                     )}
                 </MapView>
-            
             );
+
+
         }
     }
 
-
+    
 export default MapLive;
-
