@@ -42,8 +42,8 @@ export const locations = [
                 longitude: 149.080370,
             }
         ]
-        //  orgion: walks[0].coordinates,
-        //  destination:walks[1].coordinates,
+        //orgion: walks[0].coordinates,
+        //destination:walks[1].coordinates,
     },
 
     {

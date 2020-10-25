@@ -6,7 +6,7 @@ import getDirections from 'react-native-google-maps-directions'
 import MapViewDirections from 'react-native-maps-directions'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapLive from './resources/MapLive';
-import Toast from 'react-native-simple-toast';
+//import Toast from 'react-native-simple-toast';
 
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAXmvX_sg5kuefTCeSc0X5RD3poWjhoN7s';
@@ -145,10 +145,7 @@ const Map = () => {
 
     console.log("liveCoordinateState.coordinates[0]", liveCoordinateState.coordinates[0])
 
-    const showMessage = () => {
-        Toast.show('Click on a point in map to choose walking', Toast.LONG);
-    };
-
+    
     const onStartWalkPress = (index) => {
         setLiveCoordinateState({
             coordinates: [
@@ -181,7 +178,7 @@ const Map = () => {
             // onPress={!showAnimatedScroll ? onStartWalkPress : undefined}
             >
 
-                {!showAnimatedScroll && showMessage()}
+              
                 {state.locations.map((marker, index) => {
                     const scaleStyle = {
                         transform: [
