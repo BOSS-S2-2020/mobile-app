@@ -41,10 +41,14 @@ const Map = () => {
             }
         ]
     }
+    console.log("Map -> liveCoordinates", liveCoordinates)
 
     const [state, setState] = React.useState(initialMapState);
     const [liveCoordinateState, setLiveCoordinateState] = React.useState(liveCoordinates);
     const [showAnimatedScroll, setShowAnimatedScroll] = React.useState(true);
+
+    console.log("Map -> liveCoordinateState", liveCoordinateState)
+
 
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
@@ -145,14 +149,14 @@ const Map = () => {
         Toast.show('Click on a point in map to choose walking', Toast.LONG);
     };
 
-    const onStartWalkPress = (e) => {
+    const onStartWalkPress = (index) => {
         setLiveCoordinateState({
             coordinates: [
-                ...liveCoordinateState.coordinates, e.nativeEvent.coordinate
+                locations[index].coordinates[0], locations[index].coordinates[1]
             ]
         });
-        console.log("e.nativeEvent.coordinate", e.nativeEvent.coordinate)
-        console.log("...liveCoordinateState.coordinates", ...liveCoordinateState.coordinates)
+
+        console.log("onStartWalkPress -> locations[index].coordinates", locations[index].coordinates)
     }
 
     return (
@@ -162,7 +166,9 @@ const Map = () => {
                 <View style={{ justifyContent: 'center', height: 50 }}>
                     <Ionicons name="ios-arrow-back" size={20} onPress={() => {
                         setShowAnimatedScroll(true);
-                        setLiveCoordinateState(liveCoordinates)
+                        setLiveCoordinateState({
+                            coordinates: []
+                        })
                     }
                     } />
                 </View>
@@ -172,7 +178,7 @@ const Map = () => {
                 initialRegion={state.region}
                 style={styles.container}
                 provider={PROVIDER_GOOGLE}
-                onPress={!showAnimatedScroll ? onStartWalkPress : undefined}
+            // onPress={!showAnimatedScroll ? onStartWalkPress : undefined}
             >
 
                 {!showAnimatedScroll && showMessage()}
@@ -285,6 +291,7 @@ const Map = () => {
                                     <TouchableOpacity
                                         onPress={() => {
                                             setShowAnimatedScroll(false);
+                                            onStartWalkPress(index);
                                         }} //button 
                                         style={[styles.signIn, {
                                             borderColor: '#FF6347',

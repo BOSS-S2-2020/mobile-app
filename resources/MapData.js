@@ -2,7 +2,7 @@ const Images = [
     { image: require('../assets/park1.jpg') },
     { image: require('../assets/park2.jpg') },
     { image: require('../assets/park3.jpg') },
-  
+
 ];
 //const walks = [
 //    {
@@ -29,6 +29,19 @@ export const locations = [
         title: "Aranda Bushlland Nuture Reserve",
         description: "Aranda Bushland is an important part of the wooded area which extends from Black Mountain to the Molonglo and Murrumbidgee river corridors.",
         image: Images[0].image,
+        coordinates: [
+
+            {
+                latitude: -35.272908,
+                longitude: 149.080073,
+            },
+
+            {
+
+                latitude: -35.269144,
+                longitude: 149.080370,
+            }
+        ]
         //  orgion: walks[0].coordinates,
         //  destination:walks[1].coordinates,
     },
@@ -42,6 +55,19 @@ export const locations = [
         title: "Mount Ainslie Nature Reserve",
         description: "Mount Ainslie Nature Reserve (637 hectares) and the adjoining Mount Majura Nature Reserve form a significant ridge in north-east Canberra.",
         image: Images[1].image,
+        coordinates: [
+
+            {
+                latitude: -35.330854,
+                longitude: 149.118902,
+            },
+
+            {
+
+                latitude: -35.322701,
+                longitude: 149.113634,
+            }
+        ]
     },
     {
         coordinate: {
