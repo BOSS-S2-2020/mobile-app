@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput, } from 'react-native';
+import { View, StyleSheet, Image, Text, Animated, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { locations } from './resources/MapData'
 import getDirections from 'react-native-google-maps-directions'
@@ -134,26 +134,48 @@ const Map = () => {
     }
 
     const _map = React.useRef(null);
-    console.log("_map", _map)
-    console.log("_map.current", _map.current)
+    // console.log("_map", _map)
+    // console.log("_map.current", _map.current)
 
     const _scrollView = React.useRef(null);
-    
-    console.log("liveCoordinateState.coordinates[0]", liveCoordinateState.coordinates[0])
-    // console.log("result.distance", result.distance)
 
+    console.log("liveCoordinateState.coordinates[0]", liveCoordinateState.coordinates[0])
+
+    const showMessage = () => {
+        Toast.show('Click on a point in map to choose walking', Toast.LONG);
+    };
+
+    const onStartWalkPress = (e) => {
+        setLiveCoordinateState({
+            coordinates: [
+                ...liveCoordinateState.coordinates, e.nativeEvent.coordinate
+            ]
+        });
+        console.log("e.nativeEvent.coordinate", e.nativeEvent.coordinate)
+        console.log("...liveCoordinateState.coordinates", ...liveCoordinateState.coordinates)
+    }
 
     return (
 
         <View style={styles.container}>
+            { !showAnimatedScroll &&
+                <View style={{ justifyContent: 'center', height: 50 }}>
+                    <Ionicons name="ios-arrow-back" size={20} onPress={() => {
+                        setShowAnimatedScroll(true);
+                        setLiveCoordinateState(liveCoordinates)
+                    }
+                    } />
+                </View>
+            }
             <MapView
                 ref={_map}
                 initialRegion={state.region}
                 style={styles.container}
                 provider={PROVIDER_GOOGLE}
-
+                onPress={!showAnimatedScroll ? onStartWalkPress : undefined}
             >
-            { console.log("_map.current", _map.current)}
+
+                {!showAnimatedScroll && showMessage()}
                 {state.locations.map((marker, index) => {
                     const scaleStyle = {
                         transform: [
@@ -208,21 +230,24 @@ const Map = () => {
                         }}
                     />
                 )}
+
             </MapView>
-
-            <View style={styles.searchBox}>
-                <TextInput
-                    placeholder="Search here"  //searchBox
-                    placeholderTextColor="#000"
-                    autoCapitalize="none"
-                    style={{ flex: 1, padding: 0 }}
-                />
-                <Ionicons name="ios-search" size={20} />
-            </View>
-
 
 
             { showAnimatedScroll &&
+                <View style={styles.searchBox}>
+                    <TextInput
+                        placeholder="Search here"  //searchBox
+                        placeholderTextColor="#000"
+                        autoCapitalize="none"
+                        style={{ flex: 1, padding: 0 }}
+                    />
+                    <Ionicons name="ios-search" size={20} />
+                </View>
+            }
+
+            { showAnimatedScroll &&
+
                 <Animated.ScrollView
                     horizontal
                     scrollEventThrottle={1}
@@ -258,18 +283,8 @@ const Map = () => {
 
                                 <View style={styles.button}>
                                     <TouchableOpacity
-                                        onPress={(e) => {
-                                            console.log("line 197", liveCoordinateState.coordinates);
-                                            setShowAnimatedScroll(true);
-                                            Toast.show('Click on a point in map to choose walking');
-                                            setLiveCoordinateState({
-                                                coordinates: [
-                                                    ...liveCoordinateState.coordinates, e.nativeEvent.coordinate
-                                                ]
-                                            });
-                                            console.log("e.nativeEvent.coordinate", e.nativeEvent.coordinate)
-
-
+                                        onPress={() => {
+                                            setShowAnimatedScroll(false);
                                         }} //button 
                                         style={[styles.signIn, {
                                             borderColor: '#FF6347',
@@ -295,9 +310,8 @@ const Map = () => {
                             </View>
                         </View>
                     ))}
-                </Animated.ScrollView>}
-
-
+                </Animated.ScrollView>
+            }
         </View>
     );
 
