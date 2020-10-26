@@ -237,17 +237,6 @@ const Map = () => {
             </MapView>
 
 
-            { showAnimatedScroll &&
-                <View style={styles.searchBox}>
-                    <TextInput
-                        placeholder="Search here"  //searchBox
-                        placeholderTextColor="#000"
-                        autoCapitalize="none"
-                        style={{ flex: 1, padding: 0 }}
-                    />
-                    <Ionicons name="ios-search" size={20} />
-                </View>
-            }
 
             { showAnimatedScroll &&
 

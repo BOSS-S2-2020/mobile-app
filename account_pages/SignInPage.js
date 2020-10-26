@@ -17,7 +17,7 @@ const SignInPage = (props) => {
             <View style={Styles.loginContainerContent}>
                 <Text style={{ fontSize: 20 }}>Enter Password</Text>
             </View>
-            <TextInput style={Styles.loginBox} placeholder={"Password"} onChangeText={text => global.passwordInput = text}></TextInput>
+            <TextInput secureTextEntry={true} style={Styles.loginBox} placeholder={"Password"} onChangeText={text => global.passwordInput = text}></TextInput>
             <View style={Styles.spacer}></View>
             <Button title="Log in" onPress={props.completedRefresh} />
             <View style={Styles.bottomView}>

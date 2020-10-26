@@ -23,7 +23,7 @@ const ListItem = ({walkName,subtitle,duration,mapURL}) => {
             </Text>
         </View>
         <View style={Styles.ListDuration}>
-            <Text>{duration}</Text>
+            <Text>{duration.charAt(0).concat(duration.charAt(1)).concat(":").concat(duration.charAt(2)).concat(duration.charAt(3))}</Text>
         </View>
     </TouchableOpacity>
     )

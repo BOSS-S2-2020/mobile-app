@@ -4,21 +4,6 @@ const Images = [
     { image: require('../assets/park3.jpg') },
 
 ];
-//const walks = [
-//    {
-//        coordinates: {
-//            latitude: -35.272908,
-//            longitude: 149.080073,
-//        }
-//    },
-//    {
-//        coordinates: {
-
-//            latitude: -35.269144,
-//            longitude: 149.080370,
-//        }
-//    },
-//];
 
 export const locations = [
     {
@@ -42,8 +27,7 @@ export const locations = [
                 longitude: 149.080370,
             }
         ]
-        //orgion: walks[0].coordinates,
-        //destination:walks[1].coordinates,
+       
     },
 
     {
@@ -58,6 +42,28 @@ export const locations = [
         coordinates: [
 
             {
+                latitude: -35.282366,
+                longitude: 149.163908,
+            },
+
+            {
+
+                latitude: -35.270143,
+                longitude: 149.158139,
+            }
+        ]
+    },
+    {
+        coordinate: {
+            latitude: -35.329880,
+            longitude: 149.1192923,
+        },
+        title: "Red Hill Nature Reserve",
+        description: "Red Hill Nature Reserve (293 hectares) is a prominent hill located between Woden Valley and south Canberra.It makes an impressive ‘Bush Capital’ back drop to Parliament House.",
+        image: Images[2].image,
+        coordinates: [
+
+            {
                 latitude: -35.330854,
                 longitude: 149.118902,
             },
@@ -68,15 +74,5 @@ export const locations = [
                 longitude: 149.113634,
             }
         ]
-    },
-    {
-        coordinate: {
-            latitude: -35.267758,
-            longitude: 149.119234,
-        },
-        title: "Red Hill Nature Reserve",
-        description: "Red Hill Nature Reserve (293 hectares) is a prominent hill located between Woden Valley and south Canberra.It makes an impressive ‘Bush Capital’ back drop to Parliament House.",
-        image: Images[2].image,
-
     },
 ]

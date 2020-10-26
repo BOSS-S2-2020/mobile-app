@@ -23,17 +23,20 @@ const SearchSection = (props) => {
         )
     }
 } 
+
 class FeaturedHome extends React.Component{
     state = {
-        walksArray : [{walkName:"loading",parkName:"loading",duration:1,image:"https://reactjs.org/logo-og.png"}],
+        walksArray : [{walkName:"loading",parkName:"loading",duration:"0000",image:"https://reactjs.org/logo-og.png"}],
         timeFilter : 20000,
         textFilter : "",
         search : false,
         searchItem : {walkName:"test"}
     }
-    comp = this
-    render(){
+    comp = this;
+    componentDidMount(){
         FeaturedDatabase.loadParks(this)
+    }
+    render(){  
     return (
         <View style={Styles.container} >
             <View style={Styles.topBar}></View>

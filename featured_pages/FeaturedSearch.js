@@ -22,7 +22,7 @@ const FeaturedSearch = (props) => {
                     <Text>Duration</Text>
                 </View>
                 <View style={Styles.gridRowChild}>
-                    <Text>{props.item.duration}</Text>
+                    <Text>{props.item.duration.charAt(0).concat(props.item.duration.charAt(1)).concat(":").concat(props.item.duration.charAt(2)).concat(props.item.duration.charAt(3))}</Text>
                 </View>
             </View>
             <TouchableOpacity style={Styles.SearchButton} onPress={() => {Linking.openURL(props.item.mapURL)}}>
@@ -41,6 +41,7 @@ const FeaturedSearch = (props) => {
                         TimeRegistered : Date.parse(new Date())
                     })
                 })
+                Alert.alert("You have been registered for this walk")
                 }else{
                     Alert.alert("Please log in first")
                 }
