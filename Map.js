@@ -5,7 +5,6 @@ import { locations } from './resources/MapData'
 import getDirections from 'react-native-google-maps-directions'
 import MapViewDirections from 'react-native-maps-directions'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MapLive from './resources/MapLive';
 //import Toast from 'react-native-simple-toast';
 
 
